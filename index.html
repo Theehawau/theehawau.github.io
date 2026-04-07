@@ -136,50 +136,76 @@ long run. Thanks for using the theme, and feel free to submit issues as needed.<
       <a href="#share-menu" class="nav share-toggle"><i class="fas fa-share-alt">&nbsp;</i>Share</a>
       <a href="#search-input" class="nav search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
     </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
-    <a href="#share-menu" class="nav share-toggle"><i class="fas fa-share-alt fa-2x">&nbsp;</i></a>
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
+    <!-- <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    <a href="#share-menu" class="nav share-toggle"><i class="fas fa-share-alt fa-2x">&nbsp;</i></a> -->
+    <!-- <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a> -->
     <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
+    <a href="#" id="theme-toggle" class="nav link">🌙 Dark Mode</a>
+
   </nav>
   <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
   <menu id="lang-menu" class="flyout-menu menu">
-  <a href="#" lang="en" class="nav link active">English (en)</a>
-  
-    
-      
+  <!-- <a href="#" lang="en" class="nav link active">English (en)</a> -->
+  <!-- <a href="#" id="theme-toggle" class="nav link">🌙 Dark Mode</a> -->
+  <script>
+  (() => {
+    const key = "site-theme";
+    const root = document.documentElement;
+    const btn = document.getElementById("theme-toggle");
+
+    const applyTheme = (theme) => {
+      root.setAttribute("data-theme", theme);
+      btn.textContent = theme === "dark" ? "☀️ Day Mode" : "🌙 Dark Mode";
+    };
+
+    const saved = localStorage.getItem(key);
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(saved || (prefersDark ? "dark" : "light"));
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const current = root.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      localStorage.setItem(key, next);
+      applyTheme(next);
+    });
+  })();
+  </script>
+  <style>
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+  }
+  :root[data-theme="dark"] body {
+    background-color: #1a1a1a !important;
+    color: #e6e6e6;
+  }
+  :root[data-theme="dark"] a {
+    color: #8ab4f8;
+  }
+
+      /* Dark mode fixes for theme blocks that have explicit light backgrounds */
+      :root[data-theme="dark"] section,
+      :root[data-theme="dark"] nav,
+      :root[data-theme="dark"] article,
+      :root[data-theme="dark"] #site-footer,
+      :root[data-theme="dark"] #site-main,
+      :root[data-theme="dark"] #site-sidebar,
+      :root[data-theme="dark"] #site-intro,
+      :root[data-theme="dark"] .post,
+      :root[data-theme="dark"] #mini-bio {
+        background-color: #1a1a1a !important;
+        color: #e6e6e6 !important;
+      }
+
+      :root[data-theme="dark"] section a,
+      :root[data-theme="dark"] article a {
+        color: #8ab4f8;
+      }
+    </style>
     
   
 </menu>
 
-  
-       <!-- <menu id="share-menu" class="flyout-menu menu">
-      <h1>Share Post</h1>
-      
-
-
-
-
-  
-    
-    <a href="//twitter.com/share?text=Resume&amp;url=https%3a%2f%2ftheehawau.github.io%2fresume%2fresume%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
-        <i class="fab fa-twitter"></i><p>&nbsp;Twitter</p>
-      </a>
-  
-
-  
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2ftheehawau.github.io%2fresume%2fresume%2f&amp;title=Resume" target="_blank" rel="noopener" class="nav share-btn linkedin">
-            <i class="fab fa-linkedin"></i><p>&nbsp;LinkedIn</p>
-          </a>
-  
-
-  
-        <a href="mailto:?subject=Check%20out%20this%20post%20by Gillian%20Chu&amp;body=https%3a%2f%2ftheehawau.github.io%2fresume%2fresume%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
-          <i class="fas fa-envelope"></i><p>&nbsp;Email</p>
-        </a>
-  
-
-
-    </menu> -->
   
 </header>
 
@@ -277,31 +303,6 @@ long run. Thanks for using the theme, and feel free to submit issues as needed.<
 <p>(2024 Aug) Excited to start my PhD at MBZUAI with <a href="https://h-aldarmaki.github.io/">Hanan Aldramaki🤍</a>!</p>
 <p>(2024 Jul) I co-organized the AI summer school for highschool kids at MBZUAI.</p>
 
-<!-- <p>(2024 Nov) I presented LAML at Cold Spring Harbor Laboratory, at the Biological Data Science 2024 meeting, in the <em>Machine Learning</em> session. Also, I&rsquo;m now a PhD candidate!</p>
-<p>(2024 May) LAML was presented at RECOMB 2024, held at MIT this year.</p>
-<p>(2024 Apr) I am grateful to have won <em>Best Poster Runner-up</em> at NCI SSACB.</p>
-<p>(2024 Mar) Our paper titled &ldquo;Maximum Likelihood Inference of Time-scaled Cell Lineage Trees with Mixed-type Missing Data&rdquo; is on biorxiv <a href="https://www.biorxiv.org/content/10.1101/2024.03.05.583638v2">here</a> and was <em>accepted to <a href="https://recomb.org/">RECOMB 2024</a></em>. We will also present this as a lightning talk and in poster form at the <a href="https://ncifrederick.cancer.gov/events/conferences/nci-spring-school-algorithmic-cancer-biology">NCI Spring School on Algorithmic Cancer Biology</a>.</p>
-<p>(2023 Apr) I am grateful to receive the William G. Bowen Merit Fellowship from Princeton!</p>
-<p>(2022 Aug) I&rsquo;ve moved to Princeton University to do my PhD in Computer Science! Excited to start this next chapter!</p>
-<p>(2022 May) I gave a talk on CNAViz at RECOMB-CCB in San Diego. <a href="presentations/recombccb_cnaviz_051822.pdf">(pdf)</a>. I was also fortunate to win the RECOMB-CCB Scientific Communications lightning talk session in the early graduate section. <a href="presentations/recomb_communication_v2.pdf">(pptx)</a>.</p> -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
 
     </div>
   </article>
@@ -325,7 +326,7 @@ long run. Thanks for using the theme, and feel free to submit issues as needed.<
   
 </section>
 
-      <footer id="site-footer">
+<footer id="site-footer">
   
       <ul class="socnet-icons">
         
