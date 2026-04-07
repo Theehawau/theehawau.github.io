@@ -100,16 +100,68 @@
       <a href="#share-menu" class="nav share-toggle"><i class="fas fa-share-alt">&nbsp;</i>Share</a>
       <a href="#search-input" class="nav search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
     </menu>
-    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
-    <a href="#share-menu" class="nav share-toggle"><i class="fas fa-share-alt fa-2x">&nbsp;</i></a>
-    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
     <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
+    <a href="#" id="theme-toggle" class="nav link">🌙 Dark Mode</a>
   </nav>
   <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
   <menu id="lang-menu" class="flyout-menu menu">
   <a href="#" lang="en" class="nav link active">English (en)</a>
   
-    
+  <script>
+  (() => {
+    const key = "site-theme";
+    const root = document.documentElement;
+    const btn = document.getElementById("theme-toggle");
+
+    const applyTheme = (theme) => {
+      root.setAttribute("data-theme", theme);
+      btn.textContent = theme === "dark" ? "☀️ Day Mode" : "🌙 Dark Mode";
+    };
+
+    const saved = localStorage.getItem(key);
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(saved || (prefersDark ? "dark" : "light"));
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const current = root.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      localStorage.setItem(key, next);
+      applyTheme(next);
+    });
+  })();
+  </script>
+  <style>
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+  }
+  :root[data-theme="dark"] body {
+    background-color: #1a1a1a !important;
+    color: #e6e6e6;
+  }
+  :root[data-theme="dark"] a {
+    color: #8ab4f8;
+  }
+
+      /* Dark mode fixes for theme blocks that have explicit light backgrounds */
+      :root[data-theme="dark"] section,
+      :root[data-theme="dark"] nav,
+      :root[data-theme="dark"] article,
+      :root[data-theme="dark"] #site-footer,
+      :root[data-theme="dark"] #site-main,
+      :root[data-theme="dark"] #site-sidebar,
+      :root[data-theme="dark"] #site-intro,
+      :root[data-theme="dark"] .post,
+      :root[data-theme="dark"] #mini-bio {
+        background-color: #1a1a1a !important;
+        color: #e6e6e6 !important;
+      }
+
+      :root[data-theme="dark"] section a,
+      :root[data-theme="dark"] article a {
+        color: #8ab4f8;
+      }
+    </style>
       
     
   
@@ -282,7 +334,7 @@
 <li>Inspirational Leader Award at MBZUAI commencement, 2024</li>
 <li>Graduate Student Council Award at MBZUAI commencement, 2024</li>
 <li>Best Paper Award at ArabicNLP 2023</li>
-<li>GITEX x Ali Baba Cloud Oct 2023: <a href="">bountyful</a></li>
+<li>Champion at GITEX x Ali Baba Cloud Oct 2023</li>
 <li>Selected Scholar for Cornell, Maryland, Max Planck Pre-Doctoral Research School (CMMRS) 2021</li>
 <!-- <li>EthWaterloo Nov 2017: <a href="https://github.com/citethzen/citethzen">citEthzen</a></li>
 <li>CalHacks 4.0 Oct 2017: <a href="github.com/adityavarshney/echoless">Echoless</a></li>
